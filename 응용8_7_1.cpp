@@ -51,7 +51,7 @@ void display_rule(void)
 }
 
 void basic_map(void)
-{
+{ // 가로 10, 세로 10 크기의 꽉찬 네모들을 생성. 
 	int i, j;
 	for(i=0;i<10;i++)
 	{
@@ -71,7 +71,7 @@ void make_treasure(int tx[], int ty[])
 		{
 			tx[i]=rand()%11; //보물의 x좌표
 			ty[i]=rand()%11; //보물의 y좌표
-		}while((tx[i]<=1) || (ty[i]<=1));  
+		}while((tx[i]<=1) || (ty[i]<=1));   // tx[i]가 1보다 작거나 같은경우 또는 ty[i]가 1보다 작거나 같은 경우 반복. 
      }
 }
 
@@ -87,10 +87,10 @@ void display_map(int matrix[][11], int tx[], int ty[])
 {
 	int i, j;
 	basic_map();
-	for(i=1;i<=10;i++)
-		for(j=1;j<=10;j++)
+	for(i=1;i<=10;i++) // 세로 길이(10) 만큼 반복. 
+		for(j=1;j<=10;j++) // 가로 길이(10) 만큼 반복.  
 			if (matrix[i][j]==1)
-			{
+			{ // 1 = 보물이 없을때, 2는 보물이 있을때 보물이 없는경우 빈 네모를 보물이 있을 경우 별포를 생성. 
 				gotoxy(2*i-1, j);
 				printf("□");
 			}
@@ -138,7 +138,7 @@ void game_control(int tx[], int ty[])
 		matrix[(x+1)/2][y]=1;
 
 		for(i=0;i<2;i++)
-			if (((x+1)/2==tx[i]) && (y==ty[i]))
+			if (((x+1)/2==tx[i]) && (y==ty[i])) // 만일 (x+1)/2가 tx[i]와 같고 y가 ty[i]와 같은 경우 
 				matrix[(x+1)/2][y]=2;
 
 		gotoxy(1, 1);
@@ -148,10 +148,10 @@ void game_control(int tx[], int ty[])
 		for(i=1;i<=10;i++)
 			for(j=1;j<=10;j++)
 				if (matrix[i][j]==2)
-					count=count+1;
+					count=count+1; // 만일 보물을 찾을 경우 count = count + 1 
 		gotoxy(1,12);
    		printf("찾은 보물(★)의 개수 : %d", count);
-		key=getch();
+		key=getch(); // 방향키를 입력받음. 
 		move_arrow_key(key, &x, &y, 19, 10);
-	}while(count<2);
+	}while(count<2); // count가 2보다 작을 경우 반복. 
 }

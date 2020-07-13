@@ -24,14 +24,20 @@ void gotoxy(int x, int y)
    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
 }
 void display_text(int count)
-{
+{ // 1, 2 좌표로 이동하여 "다음 문제를 읽고..."출력 및 전달받은 count값 +1을 하여 "n번 문제..." 출력 
 	gotoxy(1,2);
 	printf("다음 문제를 읽고 답을 입력하시오.\n\n");
 	printf("(%d번 문제) \n\n", count+1);
 
 }
 void display_question(void)
-{
+{ 
+/* 구조체 FILE 포인터 fp1 변수 생성, 
+	fp1=fopen(file1, "r") = 심리테스트질문.txt 파일을 읽기모드로 열어 fp1 변수에 저장.
+	feof(fp1) = 파일의 끝에 도달 하지 않을 경우 0을 반환하여 파일을 끝까지 도달할 수 있도록 반복
+	파일을 읽어 chr1에 저장.
+	 
+*/
 	FILE *fp1;
 	char chr1[82];
 	int line=5, count=0;
@@ -42,7 +48,11 @@ void display_question(void)
 	{
 		fgets(chr1, 80, fp1);
 		if (chr1[0]==10)
-		{
+		{ 
+		// 만약 chr1[0] == \r인 경우
+		// display_text(count) 호출
+		// goto 중략
+		// sol[count] 값을 입력 받고 화면을 지움. 
 			display_text(count);
 			gotoxy(1, line);
 			scanf("%s", sol[count]);
@@ -59,11 +69,12 @@ void display_question(void)
 	display_text(count);
 	gotoxy(1, line);
 	scanf("%s", sol[count]);
+	// 파일을 닫음. 
 	fclose(fp1);
 
 }
 void display_result(void)
-{
+{ // display_question 함수 부분과 동일. 
 	FILE *fp2;
 	char chr1[82];
 	int line=5, count=0;
@@ -78,7 +89,7 @@ void display_result(void)
 			gotoxy(1, line+1);
 			printf("당신의 답은 : %s\n", sol[count]);
 			printf("다음문제의 해설은 아무키나 누르시오.");
-			getch();
+			getch(); // 버퍼 제거. 
 			system("cls");
 			line=5;
 			count++;

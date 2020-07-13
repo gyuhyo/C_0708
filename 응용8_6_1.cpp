@@ -90,7 +90,7 @@ void move_down(int x)
 {
 	int y;
 	for(y=2;y<box_height+2-block_stack[x];y+=1)
-	{
+	{ // y=2부터 y가 box_height+2 - block_stack[x]와 같거나 클때까지 y를 1씩 증가하며 반복. 
 		gotoxy(x, y);
 		printf("□");
 		Sleep(20); // 20초간 스탑 
@@ -102,7 +102,7 @@ void move_down(int x)
 	printf("□");
 }
 void draw_rectangle(int c, int r)
-{
+{ // 직사각형 생성. 
     int i, j;
     unsigned char a=0xa6;
     unsigned char b[7]; 
@@ -129,7 +129,7 @@ void draw_rectangle(int c, int r)
     printf("\n");
 }
 int max_block(void)
-{
+{ // 가장 높이 쌓인 부분의 갯수를 반환. 
 	int i, max=0;
 	for(i=1;i<box_height*2+1;i++)
 	{

@@ -36,9 +36,9 @@ int main(void)
 		for(i=0;i<2;i++)
 		{
 			system("cls");
-			game_control(user_name, cake_condition, &cake_left, i, &start, &end);
+			game_control(user_name, cake_condition, &cake_left, i, &start, &end); // user1과 user2가 반복하며 실행. 
 			if (cake_left<2)
-			{
+			{ // cake_left가 2보다 작은 경우 해당 순서의 승. 
 				winner=i;
 				break;
 			}
@@ -92,7 +92,7 @@ void game_control(char name[][8], int condition[],  int *left, int user, int *s,
         printf("%s님의 주사위 숫자는 %d입니다.",name[user],dice_number); 
 			
 	if (user==0)
-	{
+	{ // 유저가 0인 경우. 
 		for(i=*s;i<dice_number+*s;i++)
 			condition[i]=1;
 		*s+=dice_number;
@@ -123,14 +123,14 @@ void cake_display(char name[][8], int condition[], int left, int s, int e)
 
 	for(i=0;i<30;i++)
 		if (condition[i]==1)
-		{
+		{ // condition[i]가 1인 경우. 
 			gotoxy(10+i*2, 8);
-			printf("%s", eat_cake);
+			printf("%s", eat_cake); // 꽉찬 네모를 채움. 
 		}
 		else
-		{
+		{ // 아닌 경우. 
 			gotoxy(10+i*2, 8);
-			printf("%s", remain_cake);
+			printf("%s", remain_cake); // 빈 네모를 채움. 
 		}
 
 	gotoxy(10, 9);

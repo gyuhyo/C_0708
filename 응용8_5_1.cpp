@@ -19,10 +19,10 @@ int main(void)
    srand(time(NULL));
    intro_game();	
    do
-   {
+   { // count가 10보다 작은 경우 반복
       system("cls");
       draw_rectangle(20, 20);
-      rnd=rand()%35+4;
+      rnd=rand()%35+4; // 4~35 사이의 난수 생성 
       gotoxy(rnd, 2);
       printf("%s", target);
       count++;
@@ -50,14 +50,14 @@ void horizontal_slide(int x, int y, char *c2)
 		printf("\b ");
 }
 void draw_rectangle(int r, int c)
-{
+{ // 직사각형 생성. 
     int i, j;
     unsigned char a=0xa6;
     unsigned char b[7]; 
     for(i=1;i<7;i++)
    	b[i]=0xa0+i;
 
-    printf("%c%c",a, b[3]);
+    printf("%c%c",a, b[3]); 
     for(i=0;i<c;i++)
   	printf("%c%c", a, b[1]);
     printf("%c%c", a, b[4]);
@@ -77,7 +77,7 @@ void draw_rectangle(int r, int c)
     printf("\n");
 }
 void display_text(int count, int r_count)
-{
+{ // 게임 진행 및 게임 상태 출력 
 	gotoxy(46, 2);
 	printf("스페이스키를 누르면\n");
 	gotoxy(46, 3);
@@ -93,19 +93,19 @@ void game_control(int* r_c, int rnd)
 	int i=1, k=1, y;
 	char *horse="▲", chr;
 	do
-	{
-		i+=k;
-		if (i>39)
-			k=-1;
-		else if (i<3)
-			k=+1;
+	{ // 입력값이 있을 경우 실행. 
+		i+=k; // i = i + k;
+		if (i>39) // 만일 i가 39보다 클 경우. 
+			k=-1; // k = -1;
+		else if (i<3) // 만일 i가 3보다 작은 경우
+			k=+1; // k = +1;
 		horizontal_slide(i+1, 21, horse);
 	}while(!kbhit());
 	chr=getch();
 	y=21;
-	if (chr==32)
+	if (chr==32) // 만일 입력 값이 스페이스바인 경우. 
 	{
-		while(y>2)
+		while(y>2) // y가 2보다 작을때까지 반복. 
 		{
 			y-=1;
 			gotoxy(i+1, y);
@@ -114,13 +114,13 @@ void game_control(int* r_c, int rnd)
 			printf("\b  ");
 		}
 		if ((rnd<=i) && (i<=(rnd+1)))
-		{
+		{ // 만약 rnd가 i보다 작거나 같은 경우  그리고 i가 rnd+1보다 작거나 같은경우 
 			gotoxy(rnd, 2);
 			printf("☆");
 			gotoxy(46, 8);
 			printf("맞았습니다. ");
 			Sleep(50);
-			*r_c=*r_c+1;
+			*r_c=*r_c+1; 
 		}
 		gotoxy(1, 24);
 		printf("아무키나 누르면 다음 진행...");
